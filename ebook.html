@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Book: Gigantes pela Natureza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f7f5f0;
+            --text-color: #2c3e2e;
+            --accent-color: #1e4a31;
+            --gold: #d4af37;
+            --light-gold: #f3e5ab;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+        }
+
+        /* Cover Page */
+        .cover {
+            height: 100vh;
+            background-image: url('ebook_cover_new.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .cover::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+            z-index: 1;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+            padding: 3rem;
+            background: rgba(30, 74, 49, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 12px;
+            max-width: 800px;
+        }
+
+        .cover-content h1 {
+            font-size: 4.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            line-height: 1.1;
+        }
+
+        .cover-content h2 {
+            font-size: 1.8rem;
+            color: var(--white);
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .cover-content p {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* E-Book Pages */
+        .page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .page-content {
+            background: var(--white);
+            padding: 4rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .page-content::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(30, 74, 49, 0.1);
+            pointer-events: none;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+            margin: 1rem auto 0;
+        }
+
+        .text-block {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        .lead-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .image-full {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .image-full:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: -1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin: 3rem 0;
+        }
+
+        .quote-box {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+        }
+
+        .quote-box i {
+            font-size: 3rem;
+            color: var(--gold);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .quote-box p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .info-box {
+            background: var(--light-gold);
+            padding: 2rem;
+            border-left: 5px solid var(--gold);
+            margin: 2rem 0;
+        }
+
+        .info-box h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        /* Process Timeline */
+        .timeline {
+            position: relative;
+            margin: 4rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gold);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: 4px solid var(--white);
+            box-shadow: 0 0 0 2px var(--gold);
+        }
+
+        .timeline-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--accent-color);
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer h2 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-item i {
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .cover-content h1 { font-size: 3rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .page { padding: 2rem 1rem; }
+            .page-content { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cover -->
+    <section class="cover">
+    </section>
+
+    <!-- Introdução -->
+    <section class="page">
+        <div class="page-content">
+            <h2 class="page-title">Sobre Nós & Nossa Jornada</h2>
+            <p class="lead-text">"A Cia dos Ventos é mais do que uma empresa de Arte e Cultura. Somos uma família de mentes criativas com uma visão ousada para o mundo."</p>
+            
+            <div class="grid-2">
+                <div>
+                    <p class="text-block">Desde nossa fundação em 1994, nossa missão tem sido simples e ambiciosa: tornar o mundo mais vibrante e inspirador através da Arte. Acreditamos que a criatividade é a força que impulsiona a inovação e nos mantém sempre avançando.</p>
+                    <p class="text-block">Nossa história de 30 anos é um testemunho desse poder. Criamos o Carnaval dos Bonecos de São José dos Pinhais, inserimos os Bonecos Gigantes no Carnaval de Curitiba e produzimos o 1º Musical Infantil com Bonecos Gigantes no Brasil. Encaramos os desafios artísticos como oportunidades de transformação social.</p>
+                </div>
+                <div>
+                    <img src="Gemini_Generated_Image_tl375otl375otl37.png" alt="Cia dos Ventos Ateliê" class="image-full" style="margin: 0;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O Manifesto -->
+    <section class="page">
+        <div class="page-content">
+            <h2 class="page-title">O Manifesto: A Ideia</h2>
+            
+            <img src="ebook_biodiversity.png" alt="Biodiversidade Brasileira" class="image-full">
+            <p class="image-caption">Nossa inspiração: a imensurável e frágil biodiversidade dos biomas brasileiros.</p>
+
+            <p class="text-block">Em um mundo que clama por mais cuidado e conexão com a natureza, apresentamos o projeto <strong>"Gigantes pela Natureza"</strong> – uma iniciativa inovadora que une arte, educação ambiental e sustentabilidade.</p>
+            
+            <div class="quote-box">
+                <i class="fa-solid fa-leaf"></i>
+                <p>Imagine a grandiosidade de aves majestosas, símbolos de nossa biodiversidade ameaçada, ganhando vida em grande escala em espaços abertos, inspirando e transformando a percepção das pessoas.</p>
+            </div>
+
+            <p class="text-block">A ideia central é impactar visualmente e emocionalmente o público, elevando a conscientização sobre a delicada situação de diversas espécies de pássaros brasileiros em extinção. O gigantismo das obras reforça a magnitude do problema e a urgência de uma resposta coletiva. Cada ave escolhida será um embaixador, dando voz aos silenciosos apelos da natureza.</p>
+
+            <img src="ebook_installation.png" alt="Instalação em Parque" class="image-full">
+            <p class="image-caption">Esculturas de 4 metros de altura integradas ao espaço urbano para apreciação pública.</p>
+        </div>
+    </section>
+
+    <!-- Sustentabilidade -->
+    <section class="page">
+        <div class="page-content">
+            <h2 class="page-title">Sustentabilidade no DNA</h2>
+            
+            <p class="lead-text">A sustentabilidade não é apenas um conceito, é a essência do "Gigantes pela Natureza".</p>
+
+            <div class="grid-2">
+                <div>
+                    <img src="ebook_sustainability.png" alt="Ciclo de Sustentabilidade" class="image-full" style="margin: 0;">
+                </div>
+                <div>
+                    <p class="text-block">Nosso compromisso com o meio ambiente começa na escolha da matéria-prima: <strong>a madeira de pallets reutilizados</strong>.</p>
+                    <p class="text-block">Essa decisão estratégica não só minimiza o impacto ecológico, desviando resíduos de aterros, como também confere uma textura e história únicas a cada escultura. É a prova concreta de que a arte pode ser aliada da conservação, transformando o que seria descartado em obras de valor inestimável.</p>
+                    
+                    <div class="info-box">
+                        <h3><i class="fa-solid fa-recycle"></i> Economia Circular Aplicada</h3>
+                        <p>A mensagem de preservação se torna ainda mais poderosa quando o próprio processo de criação reflete essa preocupação, demonstrando que é possível inovar com responsabilidade e respeito ao planeta.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- A Jornada Técnica -->
+    <section class="page">
+        <div class="page-content">
+            <h2 class="page-title">A Jornada Técnica: Como Faremos?</h2>
+            
+            <img src="ebook_process.png" alt="O Processo de Criação" class="image-full">
+            <p class="image-caption">Da seleção da matéria-prima à materialização de uma obra monumental.</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Fase 1: Preparação e Curadoria da Matéria-Prima</h3>
+                    <p>Uma equipe dedicada de artistas e artesãos, especializados no trabalho com madeira, será responsável por garimpar e escolher criteriosamente os pallets. O material passará por limpeza, desinfecção e tratamento adequado para garantir durabilidade.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Fase 2: Concepção e Design Detalhado</h3>
+                    <p>Com base em pesquisas aprofundadas sobre as espécies ameaçadas, são criados designs detalhados das esculturas, adaptando-as para o formato gigante e incorporando um estilo contemporâneo e impactante.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Fase 3: Fabricação – A Transformação Artesanal</h3>
+                    <p>A fase de materialização da ideia. As peças de pallet serão meticulosamente cortadas e lixadas. A montagem é realizada com precisão, encaixando cada parte até que a forma imponente ganhe vida.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Fase 4: Finalização e Durabilidade</h3>
+                    <p>Para garantir a resistência às condições climáticas, as obras recebem impermeabilização, aplicação de vernizes protetores e reforços estruturais internos.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Fase 5: Instalação e Acessibilidade Pública</h3>
+                    <p>As esculturas serão transportadas e instaladas nos locais pré-definidos com todas as normas de segurança, próximas a banners informativos, tornando-se parte integrante e acessível da paisagem urbana.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria e Convite -->
+    <section class="page">
+        <div class="page-content">
+            <h2 class="page-title">O Despertar da Consciência</h2>
+            
+            <div class="grid-2">
+                <img src="Giant_owl_sculpture_recycled_wood_202605211828 (2).jpeg" alt="Coruja Gigante em Madeira" class="image-full" style="margin: 0;">
+                <img src="Wooden_heron_sculpture_by_lake_202605211815.jpeg" alt="Garça Gigante em Madeira" class="image-full" style="margin: 0;">
+            </div>
+
+            <p class="text-block" style="text-align: center; margin-top: 2rem;">A grandiosidade destas obras não serve apenas para impressionar pelo tamanho, mas para representar a fragilidade das espécies que estão desaparecendo silenciosamente. Esta intervenção atua como uma ferramenta poderosa de educação ecológica ao ar livre.</p>
+        </div>
+    </section>
+
+    <!-- Footer / Contato -->
+    <footer class="footer">
+        <h2>Vamos trabalhar juntos?</h2>
+        <p>Acreditamos firmemente no potencial desta iniciativa para criar uma parceria sólida na produção de um projeto de visibilidade e impacto ambiental. Faça parte dessa jornada de preservação através da arte.</p>
+        
+        <div class="contact-grid">
+            <div class="contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <span>(41) 98461-3073 / (41) 98461-3920</span>
+            </div>
+            <div class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <span>joelsonproducaocultural@gmail.com</span>
+            </div>
+        </div>
+        <div style="margin-top: 3rem; opacity: 0.7; font-size: 0.9rem;">
+            &copy; 2026 Cia dos Ventos. Projeto "Gigantes pela Natureza".
+        </div>
+    </footer>
+
+</body>
+</html>
