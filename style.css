@@ -296,6 +296,10 @@ p {
     gap: 1rem;
 }
 
+.nav-btn-mobile {
+    display: none;
+}
+
 .menu-toggle {
     display: none;
     background: none;
